@@ -3,9 +3,9 @@ import React from 'react'
 const Navbar = () => {
     return (
         <div>
-            <nav className=" bg-blue-900 lg:flex-wrap lg:justify-start py-4">
-                <div className="flex w-full flex-wrap items-center justify-between px-3">
-                  <p className='text-white'>Logout</p>
+            <nav className=" bg-blue-900 py-4">
+                <div className="px-3">
+                  <p className='text-white text-right mr-10'>Logout</p>
                 </div>
             </nav>
         </div>

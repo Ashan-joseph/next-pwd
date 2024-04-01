@@ -35,14 +35,10 @@ const Login = () => {
             const response = await login(formData)
             
             if(response.error == true){
-                toast.error('Server Error Occured. Please try again') 
+                toast.error(response.message) 
             }else{
-                if(response.data.success_code == false){
-                    toast.error(response.data.message)
-                }else{
-                    toast.success('Login Successful')
-                    redirect('/home')
-                }          
+                toast.success(response.message)
+                redirect('/home')
             }
         }
     }
