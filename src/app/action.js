@@ -1,4 +1,7 @@
 "use server"
+
+import { cookies } from "next/headers";
+
 export async function login(formData){
 
     const token = await getToken()
@@ -22,11 +25,22 @@ export async function login(formData){
     })
 
     if(response.ok){
+
         const details = await response.json()
-        const result = {'error':false,data:details}
-        return result;
+
+        if(details.success_code == false){
+
+            const result = {'error':true,message:details.message}
+            return result;
+        }else{
+            details.data.access_token = token.data
+            const session = await setMerchantSession(details.data)
+            const result = {'error':false,message:details.message}
+            return result;
+        }
+
     }else{
-        const result = {'error':true,data:null}        
+        const result = {'error':true,message:"Server error occured. Please try again"}        
         return result;
     }
 
@@ -54,5 +68,22 @@ async function getToken(){
     }else{
         let result = {'error':true,data:null}
         return result;
+    }
+}
+
+async function setMerchantSession(sessionData){
+
+    const expire = new Date(Date.now() + 10 *1000)
+    cookies().set('session', JSON.stringify(sessionData), {expire, httpOnly: true})
+    
+}
+
+export async function getMerchantSession(){
+    const session = cookies().get('session').value
+
+    if(!session) {
+        return null;
+    }else{
+        return JSON.parse(session)
     }
 }
