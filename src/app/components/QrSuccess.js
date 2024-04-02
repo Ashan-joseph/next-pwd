@@ -1,26 +1,24 @@
+'use client'
 import React from 'react'
+import RedeemQr from '../components/RedeemQr'
 
-const QrSuccess = ({props}) => {
+const QrSuccess = ({props,qrcode,status}) => {
+
     return (
         <div>
             <div className="bg-gray-100 p-6 rounded-lg shadow-md">                
                 <div className='text-center justify-center'>
-                    <h2 className="text-2xl font-bold">Voucher can be redeemed</h2>
+                    <h2 className="text-2xl font-bold">{props.message}</h2>
                     <p className="mt-2 mb-4">
-                        Merchant : {props.merchantName}
+                        Merchant : {props.data.merchantName}
                     </p>
                     <p className="mt-2 mb-4">
-                        Amount : {props.amount}
+                        Amount : {props.data.amount}
                     </p>
                     <p className="mt-2 mb-4">
-                        Expire Date : {props.expire_date}
+                        Expire Date : {props.data.expire_date}
                     </p>
-                    <a href="/home" className="inline-block bg-white-500 text-black rounded-lg border border-green-600 px-4 py-2 ">
-                        Home
-                    </a>
-                    <a href="" className="ml-2 inline-block bg-green-500 text-white rounded-lg px-4 py-2 ">
-                        Redeem
-                    </a>
+                    {status && <RedeemQr qrcode={qrcode} />} 
                 </div>
             </div>
         </div>

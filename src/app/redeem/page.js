@@ -15,6 +15,8 @@ const page = () => {
         'message' : null
     })
 
+    const [qrCode, setqrCode] = useState(null)
+
     useEffect(() =>{
         const scanner = new Html5QrcodeScanner('reader',{
             qrbox:{
@@ -30,6 +32,7 @@ const page = () => {
             scanner.clear()
             const response = await validateQrCode(result)
             setScanResult(response)
+            setqrCode(result)
         }
 
         function error(error){
@@ -44,7 +47,7 @@ const page = () => {
                 <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                     <div id="reader">
                     </div> 
-                        {scanResult.error == false ?  <QrSuccess props={scanResult.data} /> : 
+                        {scanResult.error == false ?  <QrSuccess props={scanResult} qrcode={qrCode} status={1}/> : 
                         <>
                             {scanResult.error == true ?  <QrFail props={scanResult} /> : ""}
                         </> }                   
