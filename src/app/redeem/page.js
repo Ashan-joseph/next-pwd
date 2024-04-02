@@ -5,12 +5,14 @@ import Navbar from '../components/Navbar';
 import {toast} from 'react-hot-toast'
 import { validateQrCode } from '../action';
 import QrSuccess from '../components/QrSuccess';
+import QrFail from '../components/QrFail';
 
 const page = () => {
 
     const [scanResult, setScanResult] = useState({
-        'error' : true,
-        'data': null
+        'error' : null,
+        'data': null,
+        'message' : null
     })
 
     useEffect(() =>{
@@ -27,12 +29,7 @@ const page = () => {
         async function success(result){
             scanner.clear()
             const response = await validateQrCode(result)
-
-            if(response.error == false){
-                setScanResult(response)
-            }else{
-                console.log(response)
-            }
+            setScanResult(response)
         }
 
         function error(error){
@@ -47,7 +44,10 @@ const page = () => {
                 <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                     <div id="reader">
                     </div> 
-                    {scanResult.error == false ?  <QrSuccess props={scanResult.data} /> : "" }                   
+                        {scanResult.error == false ?  <QrSuccess props={scanResult.data} /> : 
+                        <>
+                            {scanResult.error == true ?  <QrFail props={scanResult} /> : ""}
+                        </> }                   
                 </div>     
             </div>
         </>

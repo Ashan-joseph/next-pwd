@@ -112,7 +112,7 @@ export async function validateQrCode(value){
     })
 
     if(response.ok){
-        const details = await response.json(); 
+        const details = await response.json();
         if(details.success_code == true){
             let result = {'error':false,'data':details.data,'message': details.message}
             return result;
