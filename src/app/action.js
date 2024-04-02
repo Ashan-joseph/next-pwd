@@ -125,3 +125,41 @@ export async function validateQrCode(value){
         return result;
     }
 }
+
+export async function redeemQr(value){
+
+    const sessionData = await getMerchantSession()
+
+    const paylaod = {
+        'reference_number' : value,
+        'user_code' : sessionData.user_code,
+        'option_type' : '1000',
+        'token' : sessionData.token,
+    }
+
+    const url  = process.env.DEALS_MIDDLEWARE+'api/redeem-voucher'
+
+    const response = await fetch(url,{
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+sessionData.access_token
+    },
+        body:JSON.stringify(paylaod),            
+    })
+console.log(paylaod)
+    if(response.ok){
+        const details = await response.json();
+        if(details.success_code == true){
+            let result = {'error':false,'data':details.data,'message': details.message}
+            return result;
+        }else{
+            let result = {'error':true,'data':null,'message': details.message}
+            return result;
+        }
+    }else{
+        let result = {'error':true,'data':null,'message': 'Server error occured'}
+        return result;
+    }
+}
