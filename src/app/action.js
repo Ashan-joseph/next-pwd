@@ -148,7 +148,7 @@ export async function redeemQr(value){
     },
         body:JSON.stringify(paylaod),            
     })
-console.log(paylaod)
+
     if(response.ok){
         const details = await response.json();
         if(details.success_code == true){
@@ -162,4 +162,10 @@ console.log(paylaod)
         let result = {'error':true,'data':null,'message': 'Server error occured'}
         return result;
     }
+}
+
+export async function logout(){
+
+    cookies().set('session','',{expires: new Date(0)})
+
 }

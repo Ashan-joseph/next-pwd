@@ -1,11 +1,15 @@
 'use client'
-import React from 'react'
-import { useRouter } from "next/navigation"
+import React, { useState } from 'react'
+import { useRouter,usePathname  } from "next/navigation"
+import { logout } from '../action'
 
 const Navbar = () => {
+    
     const router = useRouter();
+    const [logoutView, setLogoutView] = useState(usePathname())
 
-    function logout() {
+    async function logoutUser() {
+        await logout()
         router.push("/")
     }
 
@@ -13,7 +17,9 @@ const Navbar = () => {
         <div>
             <nav className=" bg-blue-900 py-4 ">
                 <div className="px-3 text-right">
-                    <button  onClick={logout} className='text-white mr-10'>Logout</button >
+                    { logoutView == '/' ? " " :
+                        <button  onClick={logoutUser} className='text-white mr-10'>Logout</button > 
+                    }                    
                 </div>
             </nav>
         </div>
