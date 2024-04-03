@@ -4,6 +4,7 @@ import { getMerchantSession } from '../action'
 import Report from '../components/Report'
 
 export default async function page(){
+    
     const session = await getMerchantSession()
 
     return (
@@ -18,7 +19,7 @@ export default async function page(){
                         </div>
                     </a>
                     
-                        {session.is_report_enabled ? <Report /> : " "}
+                        {session != null ?  <Report /> : "" }
                     </div>
                 </div>
             </section>
