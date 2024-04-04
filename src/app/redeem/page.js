@@ -30,11 +30,12 @@ const page = () => {
         scanner.render(success,error)
 
         async function success(result){
+            sethideBar(true)
             scanner.clear()
             const response = await validateQrCode(result)
             setScanResult(response)
             setqrCode(result)
-            sethideBar(true)
+            
         }
 
         function error(error){
