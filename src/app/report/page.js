@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { getReportData,logout } from '../action'
 import ReportCard from '../components/ReportCard'
 import { useRouter  } from "next/navigation"
+import { ProgressBar } from 'react-loader-spinner'
 
 export default  function page() {
 
@@ -52,7 +53,11 @@ export default  function page() {
                         data.data.map((voucher,index) => <ReportCard key={index} voucher={voucher}/> )                    
                     : 
                     <>
-                        {data.error == true ? "No redemptions found": "Loading ..."}
+                        {data.error == true ? "No redemptions found": 
+                            <div className='flex justify-center'>
+                                <ProgressBar visible={true} height="80"width="180" borderColor="green" barColor="green"ariaLabel="loading"  wrapperStyle={{}} wrapperClass="" />
+                            </div>
+                        }
                     </>
                     }
                 </div>
