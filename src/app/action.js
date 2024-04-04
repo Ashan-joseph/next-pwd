@@ -165,7 +165,43 @@ export async function redeemQr(value){
 }
 
 export async function logout(){
-
     cookies().set('session','',{expires: new Date(0)})
+}
 
+export async function getReportData(params){
+    const sessionData = await getMerchantSession()
+
+    const paylaod = {
+        'voucher_reference' : params.voucher_reference,
+        'user_code' : sessionData.user_code,
+        'start_date' : params.start_date,
+        'end_date' : params.end_date,
+        'token' : sessionData.token,
+    }
+
+    const url  = process.env.DEALS_MIDDLEWARE+'api/deal-redemption-data'
+
+    const response = await fetch(url,{
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+sessionData.access_token
+    },
+        body:JSON.stringify(paylaod),            
+    })
+
+    if(response.ok){
+        const details = await response.json();
+        if(details.success_code == true){console.log(details.data)
+            let result = {'error':false,'data':details.data}
+            return result;
+        }else{
+            let result = {'error':true,'data':null}
+            return result;
+        }
+    }else{
+        let result = {'error':true,'data':null}
+        return result;
+    }
 }
