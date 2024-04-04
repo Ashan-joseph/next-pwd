@@ -47,7 +47,7 @@ const page = () => {
                 <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                     <div id="reader">
                     </div> 
-                        {scanResult.error == null ? ""  : 
+                        {scanResult.error == null ? "Loading ...."  : 
                         <>
                             {scanResult.error == true ?  <QrFail props={scanResult} /> :  <QrSuccess props={scanResult} qrcode={qrCode} status={1}/>}
                         </> }                
