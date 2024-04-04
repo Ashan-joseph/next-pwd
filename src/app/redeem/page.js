@@ -16,6 +16,7 @@ const page = () => {
     })
 
     const [qrCode, setqrCode] = useState(null)
+    const [hideBar, sethideBar] = useState(false)
 
     useEffect(() =>{
         const scanner = new Html5QrcodeScanner('reader',{
@@ -33,6 +34,7 @@ const page = () => {
             const response = await validateQrCode(result)
             setScanResult(response)
             setqrCode(result)
+            sethideBar(true)
         }
 
         function error(error){
@@ -49,7 +51,7 @@ const page = () => {
                     </div> 
                         {scanResult.error == null ? 
                         <div className='items-center justify-center'>
-                            <ProgressBar height="80"width="180" borderColor="green" barColor="green"ariaLabel="loading"  wrapperStyle={{}} wrapperClass="" />
+                            <ProgressBar visible={hideBar} height="80"width="180" borderColor="green" barColor="green"ariaLabel="loading"  wrapperStyle={{}} wrapperClass="" />
                         </div>
                         
                             : 
