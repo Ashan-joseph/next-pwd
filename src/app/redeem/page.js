@@ -51,7 +51,7 @@ const page = () => {
                     <div id="reader">
                     </div> 
                         {scanResult.error == null ? 
-                        <div className='items-center justify-center'>
+                        <div className='flex justify-center'>
                             <ProgressBar visible={hideBar} height="80"width="180" borderColor="green" barColor="green"ariaLabel="loading"  wrapperStyle={{}} wrapperClass="" />
                         </div>
                         
