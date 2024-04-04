@@ -1,5 +1,5 @@
 'use client'
-import {useEffect, useState, React, useRef} from 'react'
+import {useEffect, useState, React} from 'react'
 import { Html5QrcodeScanner } from "html5-qrcode";
 import Navbar from '../components/Navbar';
 import {toast} from 'react-hot-toast'
@@ -16,7 +16,6 @@ const page = () => {
     })
 
     const [qrCode, setqrCode] = useState(null)
-    const firstRender = useRef(true)
 
     useEffect(() =>{
         const scanner = new Html5QrcodeScanner('reader',{
@@ -34,7 +33,6 @@ const page = () => {
             const response = await validateQrCode(result)
             setScanResult(response)
             setqrCode(result)
-            firstRender.current = false;
         }
 
         function error(error){
@@ -49,7 +47,7 @@ const page = () => {
                 <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                     <div id="reader">
                     </div> 
-                        {firstRender.current == false ? "Loading ...."  : 
+                        {scanResult.error == null ? "Loading ...."  : 
                         <>
                             {scanResult.error == true ?  <QrFail props={scanResult} /> :  <QrSuccess props={scanResult} qrcode={qrCode} status={1}/>}
                         </> }                
