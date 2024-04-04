@@ -47,7 +47,11 @@ const page = () => {
                 <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                     <div id="reader">
                     </div> 
-                        {scanResult.error == null ? <ProgressBar height="80"width="80"radius="9"color="green"ariaLabel="loading"  wrapperStyle={{}} wrapperClass="" />
+                        {scanResult.error == null ? 
+                        <div className='items-center justify-center'>
+                            <ProgressBar height="80"width="80" borderColor="green" barColor="green"ariaLabel="loading"  wrapperStyle={{}} wrapperClass="" />
+                        </div>
+                        
                             : 
                         <>
                             {scanResult.error == true ?  <QrFail props={scanResult} /> :  <QrSuccess props={scanResult} qrcode={qrCode} status={1}/>}
