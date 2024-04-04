@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useRouter,usePathname  } from "next/navigation"
 import { logout } from '../action'
 
-const Navbar = () => {
+const Navbar = ({params}) => {
     
     const router = useRouter();
     const [logoutView, setLogoutView] = useState(usePathname())

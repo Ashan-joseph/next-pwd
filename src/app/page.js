@@ -12,7 +12,7 @@ export default async function Home() {
       <div className="max-w-lg items-center justify-center">
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div className="flex items-center justify-center">
-            <Image src="/rewardzpay.png" width={200} height={120} alt="rewardzpay"/>
+            <Image src="/rewardzpay.png" width={200} height={120} alt="rewardzpay" priority/>
           </div>
             <Login/>
           <div className="flex flex-col">
