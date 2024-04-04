@@ -193,7 +193,7 @@ export async function getReportData(params){
 
     if(response.ok){
         const details = await response.json();
-        if(details.success_code == true){console.log(details.data)
+        if(details.success_code == true){
             let result = {'error':false,'data':details.data}
             return result;
         }else{

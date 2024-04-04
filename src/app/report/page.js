@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { getReportData } from '../action'
+import { getReportData,logout } from '../action'
 import ReportCard from '../components/ReportCard'
 import { useRouter  } from "next/navigation"
 
@@ -52,7 +52,7 @@ export default  function page() {
                         data.data.map((voucher,index) => <ReportCard key={index} voucher={voucher}/> )                    
                     : 
                     <>
-                        {data.error == true ? "No redemptions found": ""}
+                        {data.error == true ? "No redemptions found": "Loading ..."}
                     </>
                     }
                 </div>
