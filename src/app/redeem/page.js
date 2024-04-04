@@ -49,7 +49,7 @@ const page = () => {
                     </div> 
                         {scanResult.error == false ?  <QrSuccess props={scanResult} qrcode={qrCode} status={1}/> : 
                         <>
-                            {scanResult.error == true ?  <QrFail props={scanResult} /> : ""}
+                            {scanResult.error == true ?  <QrFail props={scanResult} /> : "Loading ..."}
                         </> }                   
                 </div>     
             </div>
