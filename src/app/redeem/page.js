@@ -45,8 +45,12 @@ const page = () => {
             <Navbar />
             <div className="max-w-lg items-center justify-center">
                 <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                        {scanResult.error == null &&  <div id="reader"></div>   }                  
-                        {scanResult.error == true ?  <QrFail props={scanResult} /> :  <QrSuccess props={scanResult} qrcode={qrCode} status={1}/>}
+                    <div id="reader">
+                    </div> 
+                        {scanResult.error == null ? "Loading ...."  : 
+                        <>
+                            {scanResult.error == true ?  <QrFail props={scanResult} /> :  <QrSuccess props={scanResult} qrcode={qrCode} status={1}/>}
+                        </> }                
                 </div>     
             </div>
         </>
