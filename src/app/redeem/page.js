@@ -49,7 +49,7 @@ const page = () => {
                     </div> 
                         {scanResult.error == null ? 
                         <div className='items-center justify-center'>
-                            <ProgressBar height="80"width="80" borderColor="green" barColor="green"ariaLabel="loading"  wrapperStyle={{}} wrapperClass="" />
+                            <ProgressBar height="80"width="180" borderColor="green" barColor="green"ariaLabel="loading"  wrapperStyle={{}} wrapperClass="" />
                         </div>
                         
                             : 
