@@ -47,10 +47,10 @@ const page = () => {
                 <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                     <div id="reader">
                     </div> 
-                        {scanResult.error == false ?  <QrSuccess props={scanResult} qrcode={qrCode} status={1}/> : 
+                        {scanResult.error == null ? ""  : 
                         <>
-                            {scanResult.error == true ?  <QrFail props={scanResult} /> : "Loading ..."}
-                        </> }                   
+                            {scanResult.error == true ?  <QrFail props={scanResult} /> :  <QrSuccess props={scanResult} qrcode={qrCode} status={1}/>}
+                        </> }                
                 </div>     
             </div>
         </>
