@@ -2,11 +2,10 @@
 import {useEffect, useState, React} from 'react'
 import { Html5QrcodeScanner } from "html5-qrcode";
 import Navbar from '../components/Navbar';
-import {toast} from 'react-hot-toast'
 import { validateQrCode } from '../action';
 import QrSuccess from '../components/QrSuccess';
 import QrFail from '../components/QrFail';
-import { Audio } from 'react-loader-spinner'
+import { ProgressBar } from 'react-loader-spinner'
 
 const page = () => {
 
