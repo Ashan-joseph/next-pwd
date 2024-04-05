@@ -50,12 +50,12 @@ export default  function page() {
                 <div className="px-3 text-right"> 
 
                     <input type='text' 
-                        className='border rounded-lg p-1 border-black-700 bg-blue-900 text-white' 
+                        className='border rounded-lg  p-1 border-black-700 bg-blue-900 text-white' 
                         value={params.voucher_reference} 
                         onChange={(e) => setParams({...params,voucher_reference: e.target.value})} 
                         placeholder='Search by reference no'
                     />
-                    <button  onClick={shareReportData} className='text-white ml-4 mr-10'>Share</button >  
+                    <button  onClick={shareReportData} className='text-white mr-7 pl-1'>Share</button >  
                     <button  onClick={logoutUser} className='text-white '>Logout</button >                                         
                 </div>
             </nav>
