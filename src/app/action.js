@@ -247,3 +247,111 @@ export async function emailReportData(params)
         return result;
     }
 }
+
+export async function verifyClientEmail(email,resetPassword){
+    const token = await getToken()
+
+    if(token.error == true){
+        const result = {'error':true,data:null}        
+        return result;
+    }
+
+    const url  = process.env.DEALS_MIDDLEWARE+'api/verify-email'
+    const paylaod = {"email" : email,'reset_password' :resetPassword}
+
+    const response = await fetch(url,{
+        method: 'POST',
+        headers: {
+            'Authorization' : 'Bearer '+token.data,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+    },
+        body:JSON.stringify(paylaod),            
+    })
+
+    if(response.ok){
+
+        const details = await response.json()
+
+        if(details.success_code == true){
+
+            const result = {'error':false,message:details.message,data:details.data,token:token.data}
+            return result;
+        }else{
+            const result = {'error':true,message:details.message,data:null,token:null}
+            return result
+        }
+
+    }else{
+        const result = {'error':true,message:"Server error occured. Please try again",data:null,token:null}        
+        return result;
+    }
+}
+
+export async function verifyClientOtp(otp,userCode,verificationCode,accessToken){
+
+    const url  = process.env.DEALS_MIDDLEWARE+'api/verify-otp'
+    const paylaod = {"otp" : otp,'user_code' :userCode, 'verification_code':verificationCode}
+
+    const response = await fetch(url,{
+        method: 'POST',
+        headers: {
+            'Authorization' : 'Bearer '+accessToken,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+    },
+        body:JSON.stringify(paylaod),            
+    })
+
+    if(response.ok){
+
+        const details = await response.json()
+
+        if(details.success_code == true){
+
+            const result = {'error':false,message:details.message}
+            return result
+        }else{
+            const result = {'error':true,message:details.message}
+            return result
+        }
+
+    }else{
+        const result = {'error':true,message:"Server error occured. Please try again"}        
+        return result;
+    }
+}
+
+export async function resetClientPassword(userCode,resetPassword,password,passwordConfirmation,accessToken){
+
+    const url  = process.env.DEALS_MIDDLEWARE+'api/verify-password'
+    const paylaod = {"user_code" : userCode,'password':password, 'password_confirmation':passwordConfirmation,'reset_password':resetPassword}
+
+    const response = await fetch(url,{
+        method: 'POST',
+        headers: {
+            'Authorization' : 'Bearer '+accessToken,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+    },
+        body:JSON.stringify(paylaod),            
+    })
+
+    if(response.ok){
+
+        const details = await response.json()
+console.log(details)
+        if(details.success_code == true){
+console.log(details)
+            const result = {'error':false,message:details.message}
+            return result
+        }else{
+            const result = {'error':true,message:details.message}
+            return result
+        }
+
+    }else{
+        const result = {'error':true,message:"Server error occured. Please try again"}        
+        return result;
+    }    
+}

@@ -17,7 +17,7 @@ const Navbar = ({params}) => {
         <div>
             <nav className=" bg-blue-900 py-4 ">
                 <div className="px-3 text-right">
-                    { logoutView == '/' ? " " :
+                    { logoutView == '/' | logoutView == '/signup' | logoutView == '/reset-password'? " " :
                         <button  onClick={logoutUser} className='text-white mr-10'>Logout</button > 
                     }                    
                 </div>
