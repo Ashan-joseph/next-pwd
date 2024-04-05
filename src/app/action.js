@@ -278,7 +278,7 @@ export async function verifyClientEmail(email,resetPassword){
             const result = {'error':false,message:details.message,data:details.data,token:token.data}
             return result;
         }else{
-            const result = {'error':true,message:details.message,data:null,token:null}
+            const result = {'error':true,message:details.errors.email,data:null,token:null}
             return result
         }
 
@@ -312,7 +312,7 @@ export async function verifyClientOtp(otp,userCode,verificationCode,accessToken)
             const result = {'error':false,message:details.message}
             return result
         }else{
-            const result = {'error':true,message:details.message}
+            const result = {'error':true,message:details.errors.otp}
             return result
         }
 
@@ -340,13 +340,13 @@ export async function resetClientPassword(userCode,resetPassword,password,passwo
     if(response.ok){
 
         const details = await response.json()
-console.log(details)
+
         if(details.success_code == true){
-console.log(details)
+
             const result = {'error':false,message:details.message}
             return result
         }else{
-            const result = {'error':true,message:details.message}
+            const result = {'error':true,message:details.errors.password}
             return result
         }
 
