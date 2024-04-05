@@ -209,3 +209,41 @@ export async function getReportData(params){
         return result;
     }
 }
+
+export async function emailReportData(params)
+{
+    const sessionData = await getMerchantSession()
+
+    const paylaod = {
+        'start_date' : params.start_date,
+        'user_code' : sessionData.user_code,
+        'end_date' : params.end_date,
+        'token' : sessionData.token,
+    }
+
+    const url  = process.env.DEALS_MIDDLEWARE+'api/send-deal-redemption-mail'
+
+    const response = await fetch(url,{
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+sessionData.access_token
+    },
+        body:JSON.stringify(paylaod),            
+    })
+
+    if(response.ok){
+        const details = await response.json();
+        if(details.success_code == true){
+            let result = {'error':false,'message': details.message}
+            return result;
+        }else{
+            let result = {'error':true,'message': details.message}
+            return result;
+        }
+    }else{
+        let result = {'error':true,'message': 'Server error occured'}
+        return result;
+    }
+}

@@ -1,9 +1,10 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { getReportData,logout } from '../action'
+import { getReportData,logout,emailReportData } from '../action'
 import ReportCard from '../components/ReportCard'
 import { useRouter  } from "next/navigation"
 import { ProgressBar } from 'react-loader-spinner'
+import {toast} from 'react-hot-toast'
 
 export default  function page() {
 
@@ -12,6 +13,16 @@ export default  function page() {
     async function logoutUser() {
         await logout()
         router.push("/")
+    }
+
+    async function shareReportData(){
+        const response = await emailReportData(params)
+
+        if(response.error){
+            toast.error(response.message)
+        }else{
+            toast.success(response.message)
+        }
     }
 
     const[params,setParams] = useState({
@@ -36,14 +47,16 @@ export default  function page() {
     return (
         <div>
             <nav className=" bg-blue-900 py-4 ">
-                <div className="px-3 text-right">  
+                <div className="px-3 text-right"> 
+
                     <input type='text' 
                         className='border rounded-lg p-1 border-black-700 bg-blue-900 text-white' 
                         value={params.voucher_reference} 
                         onChange={(e) => setParams({...params,voucher_reference: e.target.value})} 
                         placeholder='Search by reference no'
-                    />                  
-                    <button  onClick={logoutUser} className='text-white ml-4 mr-10'>Logout</button >                                         
+                    />
+                    <button  onClick={shareReportData} className='text-white ml-4 mr-10'>Share</button >  
+                    <button  onClick={logoutUser} className='text-white '>Logout</button >                                         
                 </div>
             </nav>
             
