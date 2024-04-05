@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { verifyClientEmail } from '../action'
 import {toast} from 'react-hot-toast'
 
 const verifyEmail = ({setIsVerify,setOtpVerify,setVerificationCode,setUsercode,resetPassword,setaccessToken}) => {
 
-    async function submitEmail(formData){
-        const email = formData.get('email')
+    const[buttonName, setButtonName] = useState('VERIFY EMAIL')
 
+    function chnageButtonName(){
+        setButtonName('PLEASE WAIT ...')
+    }
+
+    async function submitEmail(formData){
+
+        const email = formData.get('email')
         const response = await verifyClientEmail(email,resetPassword)
 
         if(response.error == false){
@@ -16,9 +22,12 @@ const verifyEmail = ({setIsVerify,setOtpVerify,setVerificationCode,setUsercode,r
             setVerificationCode(response.data.code)
             setUsercode(response.data.userCode)
             setaccessToken(response.token)
+            setButtonName('VERIFY EMAIL')
+
         }else{
             toast.error(response.message)
-        }
+            setButtonName('VERIFY EMAIL')
+        }   
         
     }
 
@@ -26,7 +35,7 @@ const verifyEmail = ({setIsVerify,setOtpVerify,setVerificationCode,setUsercode,r
         <div>
             <form className="flex flex-col mt-3" action={submitEmail}>
                 <input type="text" name="email" className="border rounded-lg p-1 border-gray-800 py-2" placeholder="email" />                
-                <button type="submit" className="bg-green-500 rounded-lg mt-5 text-white py-2">VERIFY EMAIL</button>                    
+                <button onClick={chnageButtonName}  type="submit" className="bg-green-500 rounded-lg mt-5 text-white py-2">{buttonName}</button>                    
             </form>
         </div>
     )
