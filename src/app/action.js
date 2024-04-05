@@ -114,6 +114,10 @@ export async function validateQrCode(value){
     if(response.ok){
         const details = await response.json();
         if(details.success_code == true){
+            
+            sessionData.qrcode = value
+            await setMerchantSession(sessionData)
+
             let result = {'error':false,'data':details.data,'message': details.message}
             return result;
         }else{
@@ -126,12 +130,12 @@ export async function validateQrCode(value){
     }
 }
 
-export async function redeemQr(value){
+export async function redeemQr(){
 
     const sessionData = await getMerchantSession()
 
     const paylaod = {
-        'reference_number' : value,
+        'reference_number' : sessionData.qrcode,
         'user_code' : sessionData.user_code,
         'option_type' : '1000',
         'token' : sessionData.token,

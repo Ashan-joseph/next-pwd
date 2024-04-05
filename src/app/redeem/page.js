@@ -1,69 +1,70 @@
 'use client'
-import {useEffect, useState, React} from 'react'
-import { Html5QrcodeScanner } from "html5-qrcode";
-import Navbar from '../components/Navbar';
-import { validateQrCode } from '../action';
-import QrSuccess from '../components/QrSuccess';
-import QrFail from '../components/QrFail';
+import React, { useEffect, useState } from 'react'
+import Navbar from '../components/Navbar'
+import { redeemQr } from '../action'
 import { ProgressBar } from 'react-loader-spinner'
 
-const page = () => {
+async function callredeemQr(){
+    const result = await redeemQr()
+    return result
+}
 
-    const [scanResult, setScanResult] = useState({
-        'error' : null,
-        'data': null,
-        'message' : null
+export default function page()  {
+
+    const [response, setResponse] = useState({
+        error:null,
+        data:null,
+        message: null
     })
-
-    const [qrCode, setqrCode] = useState(null)
-    const [hideBar, sethideBar] = useState(false)
-
-    useEffect(() =>{
-        const scanner = new Html5QrcodeScanner('reader',{
-            qrbox:{
-            width: 10000,
-            height:10000
-            },
-            fps: 2,
-        })
-
-        scanner.render(success,error)
-
-        async function success(result){
-            sethideBar(true)
-            scanner.clear()
-            const response = await validateQrCode(result)
-            setScanResult(response)
-            setqrCode(result)
-            
+    
+    useEffect(() => {
+        async function fetchData() {
+            const result = await callredeemQr();
+            setResponse(result)
         }
-
-        function error(error){
-            //toast.error('An error Occured')
-        }
+        fetchData()
     },[])
 
+
     return (
-        <>
+        <div>
             <Navbar />
             <div className="max-w-lg items-center justify-center">
                 <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                    <div id="reader">
-                    </div> 
-                        {scanResult.error == null ? 
+                {
+                    response.error == null ?                             
                         <div className='flex justify-center'>
-                            <ProgressBar visible={hideBar} height="80"width="180" borderColor="green" barColor="green"ariaLabel="loading"  wrapperStyle={{}} wrapperClass="" />
-                        </div>
-                        
-                            : 
-                        <>
-                            {scanResult.error == true ?  <QrFail props={scanResult} /> :  <QrSuccess props={scanResult} qrcode={qrCode} status={1}/>}
-                        </> }                
-                </div>     
-            </div>
-        </>
+                            <ProgressBar visible={true} height="80"width="180" borderColor="green" barColor="green"ariaLabel="loading"  wrapperStyle={{}} wrapperClass="" />
+                        </div> : 
+                    <>  
+                        {response.error == false ? 
+                            <div className="bg-gray-100 p-6 rounded-lg shadow-md">                
+                                <div className='text-center justify-center'>
+                                    <h2 className="text-2xl font-bold">{response.message}</h2>
+                                    <p className="mt-2 mb-4">
+                                        Reference No : {response.data.invoice_ref_number}
+                                    </p>                                    
+                                    <a href="/home" className="bg-white-500 text-black rounded-lg border border-green-600 px-4 py-2 mt-2">
+                                        Home
+                                    </a>
+                                </div>
+                            </div>
+                        : 
+                            <div className="bg-gray-100 p-6 rounded-lg shadow-md">                
+                                <div className='text-center justify-center'>
+                                    <h2 className="text-2xl font-bold">{response.message}</h2>
 
+                                    <a href="/home" className="inline-block bg-white-500 text-black rounded-lg border border-green-600 mt-2 px-4 py-2">
+                                        Home
+                                    </a>                   
+                                </div>
+                            </div>
+                        }
+                    </>
+                }
+                </div> 
+            </div>  
+        </div>
     )
 }
 
-export default page
