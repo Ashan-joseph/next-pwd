@@ -9,7 +9,7 @@ export default async function Home() {
   return (
     <>
       <Navbar />
-      <div className="flex justify-center items-center w-screen">
+      <div className="flex justify-center items-center h-screen">
         <div className="w-96 p-6 shadow-lg bg-white rounded-md">
           <div className="flex items-center justify-center">
             <Image src="/rewardzpay.png" width={200} height={120} alt="rewardzpay" priority/>
