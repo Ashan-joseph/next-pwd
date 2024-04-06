@@ -10,8 +10,8 @@ export default async function page(){
     return (
         <div>
             <Navbar />
-            <section className="py-4">
-                <div className="container-xl lg:container m-auto">
+            <section className="flex justify-center items-center">
+                <div className="w-96 p-6 bg-white rounded-md">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-lg">
                     <a href="/validate">
                         <div className="bg-gray-100 p-6 rounded-lg shadow-md">

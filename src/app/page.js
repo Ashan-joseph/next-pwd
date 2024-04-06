@@ -9,19 +9,16 @@ export default async function Home() {
   return (
     <>
       <Navbar />
-      <div className="max-w-lg items-center justify-center">
-        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <div className="flex justify-center items-center w-screen">
+        <div className="w-96 p-6 shadow-lg bg-white rounded-md">
           <div className="flex items-center justify-center">
             <Image src="/rewardzpay.png" width={200} height={120} alt="rewardzpay" priority/>
           </div>
             <Login/>
           <div className="flex flex-col">
             <Link href='/signup' className="bg-white-500 border border-green-600 rounded-lg text-black py-2"><div className='flex items-center justify-center'>SIGN UP</div></Link>        
-          </div>          
+          </div>
         </div>
-        <p className="text-center text-gray-500 text-xs">
-          &copy;2024 Knightsbridge Technologies. All rights reserved!
-        </p>
       </div>
     </>
   )
