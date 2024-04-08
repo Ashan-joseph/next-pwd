@@ -5,6 +5,8 @@ import ReportCard from '../components/ReportCard'
 import { useRouter  } from "next/navigation"
 import { ProgressBar } from 'react-loader-spinner'
 import {toast} from 'react-hot-toast'
+import { FaShareAlt,FaPowerOff,FaHome   } from 'react-icons/fa'
+import Link from 'next/link'
 
 export default  function page() {
 
@@ -13,6 +15,10 @@ export default  function page() {
     async function logoutUser() {
         await logout()
         router.push("/")
+    }
+
+    async function gotoHome(){
+        router.push("/home")
     }
 
     async function shareReportData(){
@@ -46,17 +52,17 @@ export default  function page() {
 
     return (
         <div>
-            <nav className=" bg-blue-900 py-4 ">
-                <div className="px-3 text-right"> 
-
+            <nav className=" bg-blue-900 py-4 ">                
+                <div className="px-3 text-right">                   
                     <input type='text' 
                         className='border rounded-lg  p-1 border-black-700 bg-blue-900 text-white' 
                         value={params.voucher_reference} 
                         onChange={(e) => setParams({...params,voucher_reference: e.target.value})} 
                         placeholder='Search by reference no'
                     />
-                    <button  onClick={shareReportData} className='text-white mr-7 pl-1'>Share</button >  
-                    <button  onClick={logoutUser} className='text-white '>Logout</button >                                         
+                    <button onClick={gotoHome} href="/home" className='text-white mr-7 pl-1'><FaHome /></button>
+                    <button  onClick={shareReportData} className='text-white mr-7 pl-1'><FaShareAlt /></button >  
+                    <button  onClick={logoutUser} className='text-white '><FaPowerOff /></button >                                         
                 </div>
             </nav>
             
