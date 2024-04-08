@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
 import { verifyClientOtp } from '../action'
 import {toast} from 'react-hot-toast'
+import { z } from 'zod'
+
+const verifyOTPSchema = z.object({
+    id: z.number().optional(),
+    otp: z.string().min(1,{message:"Invalid OTP"}),
+})
 
 const OtpVerify = ({userCode,verificationCode,setpasswordChangeView,accessToken,setOtpVerify}) => {
 
@@ -11,18 +17,35 @@ const OtpVerify = ({userCode,verificationCode,setpasswordChangeView,accessToken,
     }
 
     async function submitOtp(formData){
-        const otp = formData.get('otp')
-        const response = await verifyClientOtp(otp,userCode,verificationCode,accessToken)
 
-        if(response.error == false){
-            toast.success(response.message)
-            setOtpVerify(false)
-            setpasswordChangeView(true)
+        const verifyOTPCredential = {
+            otp: formData.get('otp'),
+        }
+
+        const result = verifyOTPSchema.safeParse(verifyOTPCredential) 
+
+        if(!result.success){
+
+            result.error.issues.forEach((issue) => {               
+                toast.error(issue.message)
+            })
             setButtonName('SUBMIT')
         }else{
-            toast.error(response.message)
-            setButtonName('SUBMIT')
+
+            const otp = formData.get('otp')
+            const response = await verifyClientOtp(otp,userCode,verificationCode,accessToken)
+    
+            if(response.error == false){
+                toast.success(response.message)
+                setOtpVerify(false)
+                setpasswordChangeView(true)
+                setButtonName('SUBMIT')
+            }else{
+                toast.error(response.message)
+                setButtonName('SUBMIT')
+            }
         }
+
     }
 
     return (

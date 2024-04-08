@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
 import { verifyClientEmail } from '../action'
 import {toast} from 'react-hot-toast'
+import { z } from 'zod'
+
+const verifyEmailSchema = z.object({
+    id: z.number().optional(),
+    email: z.string().email("Invalid email format provided"),
+})
 
 const verifyEmail = ({setIsVerify,setOtpVerify,setVerificationCode,setUsercode,resetPassword,setaccessToken}) => {
 
@@ -12,22 +18,36 @@ const verifyEmail = ({setIsVerify,setOtpVerify,setVerificationCode,setUsercode,r
 
     async function submitEmail(formData){
 
-        const email = formData.get('email')
-        const response = await verifyClientEmail(email,resetPassword)
+        const verifyEmailCredential = {
+            email: formData.get('email'),
+        }
 
-        if(response.error == false){
-            toast.success(response.message)
-            setIsVerify(false)
-            setOtpVerify(true)
-            setVerificationCode(response.data.code)
-            setUsercode(response.data.userCode)
-            setaccessToken(response.token)
+        const result = verifyEmailSchema.safeParse(verifyEmailCredential) 
+
+        if(!result.success){
+            result.error.issues.forEach((issue) => {               
+                toast.error(issue.message)
+            })
             setButtonName('VERIFY EMAIL')
-
         }else{
-            toast.error(response.message)
-            setButtonName('VERIFY EMAIL')
-        }   
+
+            const email = formData.get('email')
+            const response = await verifyClientEmail(email,resetPassword)
+
+            if(response.error == false){
+                toast.success(response.message)
+                setIsVerify(false)
+                setOtpVerify(true)
+                setVerificationCode(response.data.code)
+                setUsercode(response.data.userCode)
+                setaccessToken(response.token)
+                setButtonName('VERIFY EMAIL')
+
+            }else{
+                toast.error(response.message)
+                setButtonName('VERIFY EMAIL')
+            }   
+        }
         
     }
 

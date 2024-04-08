@@ -2,6 +2,13 @@ import React, { useState } from 'react'
 import { resetClientPassword } from '../action'
 import {toast} from 'react-hot-toast'
 import { useRouter  } from "next/navigation"
+import { z } from 'zod'
+
+const schema = z.object({
+    password: z.string().min(8, {message: 'Password must be at least 8 characters'}),
+    passwordCnf: z.string().min(8, {message: 'Password confirmation must be at least 8 characters'})
+    }).refine((data) => data.password === data.passwordCnf, {message: 'Password does not match'
+})
 
 const ChangePassword = ({userCode,resetPassword,accessToken}) => {
 
@@ -15,23 +22,39 @@ const ChangePassword = ({userCode,resetPassword,accessToken}) => {
 
     async function submitPassword(formData){
 
-        const password = formData.get('password')
-        const passwordConfirmation = formData.get('passwordCnf')
-
-        const response = await resetClientPassword(userCode,resetPassword,password,passwordConfirmation,accessToken)
-        
-
-        if(response.error == false){
-            toast.success(response.message)
-            setButtonName('SUBMIT')
-            router.push("/")
-
-        }else{
-            toast.error(response.message)
-            setButtonName('SUBMIT')
-            router.push("/signup")
+        const ChangePasswordCredential = {
+            password: formData.get('password'),
+            passwordCnf: formData.get('passwordCnf'),
         }
 
+        const result = schema.safeParse(ChangePasswordCredential) 
+
+        if(!result.success){
+
+            result.error.issues.forEach((issue) => {               
+                toast.error(issue.message)
+            })
+            setButtonName('SUBMIT')
+        }else{
+
+            const password = formData.get('password')
+            const passwordConfirmation = formData.get('passwordCnf')
+    
+            const response = await resetClientPassword(userCode,resetPassword,password,passwordConfirmation,accessToken)
+            
+    
+            if(response.error == false){
+                toast.success(response.message)
+                setButtonName('SUBMIT')
+                router.push("/")
+    
+            }else{
+                toast.error(response.message)
+                setButtonName('SUBMIT')
+                router.push("/signup")
+            }
+
+        }
     }
 
     return (
