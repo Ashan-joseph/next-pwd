@@ -79,12 +79,12 @@ async function setMerchantSession(sessionData){
 }
 
 export async function getMerchantSession(){
-    const session = cookies().get('session').value
 
-    if(!session) {
-        return null;
-    }else{
+    if(cookies().has('session')) {
+        const session = cookies().get('session').value
         return JSON.parse(session)
+    }else{
+        return null
     }
 }
 

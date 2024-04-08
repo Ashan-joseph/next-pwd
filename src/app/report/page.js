@@ -6,7 +6,6 @@ import { useRouter  } from "next/navigation"
 import { ProgressBar } from 'react-loader-spinner'
 import {toast} from 'react-hot-toast'
 import { FaShareAlt,FaPowerOff,FaHome   } from 'react-icons/fa'
-import Link from 'next/link'
 
 export default  function page() {
 
