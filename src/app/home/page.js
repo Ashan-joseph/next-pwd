@@ -11,7 +11,7 @@ export default async function page(){
         <div>
             <Navbar />
             <section className="flex justify-center items-center">
-                <div className="w-96 p-6 bg-white rounded-md">
+                <div className="p-6 bg-white rounded-md">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-lg">
                     <a href="/validate">
                         <div className="bg-gray-100 p-6 rounded-lg shadow-md">

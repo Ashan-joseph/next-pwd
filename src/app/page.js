@@ -1,15 +1,38 @@
-
+'use client'
 import Image from 'next/image'
 import Link from 'next/link'
 import Login from './components/Login'
 import Navbar from './components/Navbar'
+import PwaModel from './components/PwaModel'
+import { useEffect,useState } from 'react'
 
-export default async function Home() {
+export default function Home() {
+
+  const [showInstallModal,setshowInstallModal] = useState(false)
+  const [prompt,setPrompt] = useState(null)
+
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (event) => {
+        event.preventDefault();
+        setPrompt(event)
+
+        if(!window.matchMedia("(display-mode:standalone").matches){
+          setshowInstallModal(true)
+        }
+    }
+    window.addEventListener("beforeinstallprompt",handleBeforeInstallPrompt)
+
+    return () => {
+      window.removeEventListener("beforeinstallprompt",handleBeforeInstallPrompt)
+
+    }
+  },[])
 
   return (
     <>
       <Navbar />
-      <div className="flex justify-center items-center h-screen">
+      <PwaModel show={showInstallModal} setshowInstallModal={setshowInstallModal} prompt={prompt}/>
+      <div className="flex justify-center items-center mt-40">
         <div className="w-96 p-6 shadow-lg bg-white rounded-md">
           <div className="flex items-center justify-center">
             <Image src="/rewardzpay.png" width={200} height={120} alt="rewardzpay" priority/>

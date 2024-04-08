@@ -5,15 +5,20 @@ import { Toaster } from "react-hot-toast";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Rewardz App",
+  title: "RewardzPay",
   description: "Developed by Knightsbridge",
+  manifest: "/manifest.json"
+};
+
+export const viewport = {
+  themeColor: "#FFFFFF",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="lg:hidden">{children}</div>
+        {children}
         <Toaster position="top-right" />
       </body>
     </html>
