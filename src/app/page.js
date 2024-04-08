@@ -35,8 +35,9 @@ export default function Home() {
       <div className="flex justify-center items-center mt-40">
         <div className="w-96 p-6 shadow-lg bg-white rounded-md">
           <div className="flex items-center justify-center">
-            <Image src="/rewardzpay.png" width={200} height={120} alt="rewardzpay" priority/>
-          </div>
+            <Image src="/rewardzpay.png" width={150} height={120} alt="rewardzpay" priority/>
+          </div><hr className='mt-2 mb-2' />
+          <h1 className="text-2xl font-bold text-center text-blue-900">Sign In</h1> 
             <Login/>
           <div className="flex flex-col">
             <Link href='/signup' className="bg-white-500 border border-green-600 rounded-lg text-black py-2"><div className='flex items-center justify-center'>SIGN UP</div></Link>        

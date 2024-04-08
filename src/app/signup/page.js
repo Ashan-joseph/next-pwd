@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar'
 import VerifyEmail from '../components/VerifyEmail'
 import OtpVerify from '../components/OtpVerify'
 import ChangePassword from '../components/ChangePassword'
+import Image from 'next/image'
 
 const page = () => {
 
@@ -19,8 +20,13 @@ const page = () => {
     return (
         <div>
             <Navbar />
-            <div className="max-w-lg items-center justify-center">
-                <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div className="flex justify-center items-center mt-40">
+                <div className="w-96 p-6 shadow-lg bg-white rounded-md">
+                    <div className="flex items-center justify-center">
+                        <Image src="/rewardzpay.png" width={150} height={120} alt="rewardzpay" priority/>
+                    </div>
+                    <hr className='mt-2 mb-2' />
+                    <h1 className="text-2xl font-bold text-center text-blue-900">Merchant Registration</h1> 
 
                     {isVerify && 
                         <VerifyEmail 
@@ -52,9 +58,9 @@ const page = () => {
                     }
 
                 </div>
-                <p className="text-center text-gray-500 text-xs">
+                {/* <p className="text-center text-gray-500 text-xs">
                     &copy;2024 Knightsbridge Technologies. All rights reserved!
-                </p>
+                </p> */}
             </div>
         </div>
     )
