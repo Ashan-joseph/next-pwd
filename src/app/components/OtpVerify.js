@@ -53,7 +53,7 @@ const OtpVerify = ({userCode,verificationCode,setpasswordChangeView,accessToken,
             <div>
                 <form className="flex flex-col mt-3" action={submitOtp}>
                     <input type="text" name="otp" className="border rounded-lg p-1 border-gray-800 py-2" placeholder="OTP" />                
-                    <button onClick={chnageButtonName} type="submit" className="bg-green-500 rounded-lg mt-5 text-white py-2">{buttonName}</button>                    
+                    <button onClick={chnageButtonName} type="submit" className="bg-green-500 rounded-full mt-5 text-white py-2">{buttonName}</button>                    
                 </form>
             </div>
         </div>
