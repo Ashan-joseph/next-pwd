@@ -46,8 +46,8 @@ const page = () => {
     return (
         <>
             <Navbar />
-            <div className="max-w-lg items-center justify-center">
-                <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div className="flex justify-center items-center mt-40">
+                <div className="w-96 p-6 shadow-lg bg-white rounded-md">
                     <div id="reader">
                     </div> 
                         {scanResult.error == null ? 

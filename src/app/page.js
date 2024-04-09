@@ -40,7 +40,7 @@ export default function Home() {
           <h1 className="text-2xl font-bold text-center text-blue-900">Sign In</h1> 
             <Login/>
           <div className="flex flex-col">
-            <Link href='/signup' className="bg-white-500 border border-green-600 rounded-lg text-black py-2"><div className='flex items-center justify-center'>SIGN UP</div></Link>        
+            <Link href='/signup' className="bg-white-500 border border-green-600 rounded-full text-black py-2"><div className='flex items-center justify-center'>SIGN UP</div></Link>        
           </div>
         </div>
       </div>
