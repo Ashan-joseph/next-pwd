@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { getReportData,logout,emailReportData } from '../action'
 import ReportCard from '../components/ReportCard'
 import { useRouter  } from "next/navigation"
-import { ProgressBar } from 'react-loader-spinner'
+import { ColorRing } from 'react-loader-spinner'
 import {toast} from 'react-hot-toast'
 import { FaShareAlt,FaPowerOff,FaHome   } from 'react-icons/fa'
 
@@ -65,15 +65,23 @@ export default  function page() {
                 </div>
             </nav>
             
-            <div className="max-w-xl items-center justify-center">
-                <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div className="flex justify-center items-center">
+                <div className="p-6 bg-white rounded-md">
                     {data.error == false ? 
                         data.data.map((voucher,index) => <ReportCard key={index} voucher={voucher}/> )                    
                     : 
                     <>
                         {data.error == true ? "No redemptions found": 
                             <div className='flex justify-center'>
-                                <ProgressBar visible={true} height="80"width="180" borderColor="green" barColor="green"ariaLabel="loading"  wrapperStyle={{}} wrapperClass="" />
+                                <ColorRing
+                                    visible={true}
+                                    height="80"
+                                    width="80"
+                                    ariaLabel="color-ring-loading"
+                                    wrapperStyle={{}}
+                                    wrapperClass="color-ring-wrapper"
+                                    colors={['##000080']}
+                                />                                
                             </div>
                         }
                     </>
