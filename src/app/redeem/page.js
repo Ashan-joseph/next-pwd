@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import { redeemQr } from '../action'
-import { ProgressBar } from 'react-loader-spinner'
+import { ColorRing } from 'react-loader-spinner'
 import { FaCheckCircle,FaExclamationTriangle  } from 'react-icons/fa';
 
 async function callredeemQr(){
@@ -35,7 +35,15 @@ export default function page()  {
                 {
                     response.error == null ?                             
                         <div className='flex justify-center'>
-                            <ProgressBar visible={true} height="80"width="180" borderColor="green" barColor="green"ariaLabel="loading"  wrapperStyle={{}} wrapperClass="" />
+                            <ColorRing
+                                visible={true}
+                                height="80"
+                                width="80"
+                                ariaLabel="color-ring-loading"
+                                wrapperStyle={{}}
+                                wrapperClass="color-ring-wrapper"
+                                colors={['##000080']}
+                            />   
                         </div> : 
                     <>  
                         {response.error == false ? 

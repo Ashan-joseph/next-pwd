@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import { validateQrCode } from '../action';
 import QrSuccess from '../components/QrSuccess';
 import QrFail from '../components/QrFail';
-import { ProgressBar } from 'react-loader-spinner'
+import { ColorRing } from 'react-loader-spinner'
 
 const page = () => {
 
@@ -52,7 +52,15 @@ const page = () => {
                     </div> 
                         {scanResult.error == null ? 
                         <div className='flex justify-center'>
-                            <ProgressBar visible={hideBar} height="80"width="180" borderColor="green" barColor="green"ariaLabel="loading"  wrapperStyle={{}} wrapperClass="" />
+                            <ColorRing
+                                visible={hideBar}
+                                height="80"
+                                width="80"
+                                ariaLabel="color-ring-loading"
+                                wrapperStyle={{}}
+                                wrapperClass="color-ring-wrapper"
+                                colors={['##000080']}
+                            />                            
                         </div>
                         
                             : 
