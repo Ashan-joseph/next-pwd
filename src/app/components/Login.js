@@ -57,7 +57,7 @@ const Login = () => {
                 <input type="text" name="email" className="border rounded-lg p-1 border-gray-800 py-2" placeholder="email" />
                 <input type="password" name="password" className="border rounded-lg p-1 border-gray-800 mt-2 py-2" placeholder="password" />
                 <Link href='/reset-password' className='text-right mt-1 text-xs mr-2'>Forgot Password ?</Link>
-                <button onClick={chnageButtonName} type="submit" className="bg-green-500 rounded-lg mt-3 text-white py-2" >{buttonName}</button>
+                <button onClick={chnageButtonName} type="submit" className="bg-green-500 rounded-full mt-3 text-white py-2" >{buttonName}</button>
                 <hr className="h-px my-3 bg-gray-200 border-0 dark:bg-gray-700" />              
             </form>
         </>
