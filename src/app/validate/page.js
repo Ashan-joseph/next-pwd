@@ -25,6 +25,7 @@ const page = () => {
             height:10000
             },
             fps: 2,
+            rememberLastUsedCamera: true,
         })
 
         scanner.render(success,error)
