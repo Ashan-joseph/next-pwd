@@ -1,6 +1,6 @@
 'use client'
 import {useEffect, useState, React} from 'react'
-import { Html5QrcodeScanner } from "html5-qrcode";
+import { Html5QrcodeScanner,Html5QrcodeScanType } from "html5-qrcode";
 import Navbar from '../components/Navbar';
 import { validateQrCode } from '../action';
 import QrSuccess from '../components/QrSuccess';
@@ -26,6 +26,7 @@ const page = () => {
             },
             fps: 2,
             rememberLastUsedCamera: true,
+            supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
         })
 
         scanner.render(success,error)
