@@ -50,13 +50,16 @@ const page = () => {
             <Navbar />
             <div className="flex justify-center items-center mt-40">
                 <div className="w-96 p-6 shadow-lg bg-white rounded-md">
-                    <div className='bg-blue-200 rounded-md p-1'>
-                        <h4 className='flex justify-center items-center'>Steps to open camera</h4>
-                        <p>Step 1: Click Request Camera Permissions</p>
-                        <p>Step 2: Allow app to access camera</p>
-                        <p>Step 3: Select back camera to scan image</p>
-                        <p>Step 4: Click start scanning option</p>
-                    </div>
+                    {
+                        scanResult.error == null ?
+                        <div className='bg-blue-200 rounded-md p-1'>
+                            <h4 className='flex justify-center items-center'>Steps to open camera</h4>
+                            <p>Step 1: Click Request Camera Permissions</p>
+                            <p>Step 2: Allow app to access camera</p>
+                            <p>Step 3: Select back camera to scan image</p>
+                            <p>Step 4: Click start scanning option</p>
+                        </div> : ""
+                    }
                     <div id="reader" className='mt-2'>
                     </div> 
                         {scanResult.error == null ? 
